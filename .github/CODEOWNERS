@@ -1,0 +1,11 @@
+# Global Code Owners
+* @cvoptimeterai/core-team
+
+# Backend Owners
+/backend/ @cvoptimeterai/backend-team
+
+# Frontend Owners
+/frontend/ @cvoptimeterai/frontend-team
+
+# Security Policy
+SECURITY.md @cvoptimeterai/security-team

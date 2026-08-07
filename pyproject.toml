@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cv-optimeter-ai"
+version = "1.0.0"
+description = "Enterprise AI-powered Resume Optimization & ATS Analysis SaaS Platform"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "CV Optimeter AI Team", email = "support@cvoptimeter.ai" }]
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = ["E", "F", "B", "I"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --cov=app"
+testpaths = ["backend/tests"]

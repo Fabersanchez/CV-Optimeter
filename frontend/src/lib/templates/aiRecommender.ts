@@ -30,14 +30,14 @@ export function recommendTemplates(
     thirdId = "ats-professional";
   } else if (roleLower.includes("designer") || roleLower.includes("creative") || roleLower.includes("art")) {
     topId = "creative";
-    secondId = "modern";
-    thirdId = "minimalist";
+    secondId = "minimalist";
+    thirdId = "ats-professional";
   } else if (roleLower.includes("finance") || roleLower.includes("analyst") || roleLower.includes("cpa")) {
     topId = "finance";
     secondId = "corporate";
     thirdId = "ats-professional";
   } else if (roleLower.includes("doctor") || roleLower.includes("nurse") || roleLower.includes("health")) {
-    topId = "healthcare";
+    topId = "medical";
     secondId = "ats-professional";
     thirdId = "minimalist";
   } else if (roleLower.includes("professor") || roleLower.includes("phd") || roleLower.includes("research")) {

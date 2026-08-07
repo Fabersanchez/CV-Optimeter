@@ -58,6 +58,25 @@ export interface CertificationItem {
   link?: string;
 }
 
+export interface LanguageItem {
+  id: string;
+  language: string;
+  proficiency: "Native" | "Fluent" | "Professional" | "Intermediate";
+}
+
+export interface AchievementItem {
+  id: string;
+  title: string;
+  impact: string;
+  metric: string;
+}
+
+export interface SocialLink {
+  id: string;
+  platform: string;
+  url: string;
+}
+
 export interface CustomSection {
   id: string;
   title: string;
@@ -71,6 +90,8 @@ export type SectionType =
   | "education"
   | "projects"
   | "certifications"
+  | "languages"
+  | "achievements"
   | "custom";
 
 export interface ResumeData {
@@ -83,6 +104,9 @@ export interface ResumeData {
   skillGroups: SkillGroup[];
   projects: ProjectItem[];
   certifications: CertificationItem[];
+  languages: LanguageItem[];
+  achievements: AchievementItem[];
+  socialLinks: SocialLink[];
   customSections: CustomSection[];
   sectionOrder: SectionType[];
 }
@@ -91,15 +115,16 @@ export type TemplateCategory =
   | "ats-professional"
   | "executive"
   | "corporate"
-  | "modern"
-  | "minimalist"
-  | "creative"
-  | "academic"
-  | "engineering"
   | "technology"
-  | "healthcare"
+  | "engineering"
+  | "medical"
   | "finance"
-  | "legal-marketing";
+  | "legal-marketing"
+  | "academic"
+  | "creative"
+  | "minimalist"
+  | "startup"
+  | "ai-generated";
 
 export type FontPairing =
   | "inter"
@@ -131,6 +156,7 @@ export interface TemplateMeta {
   description: string;
   recommendedFor: string[];
   atsScoreRating: number;
+  visualScoreRating: number;
   badge: string;
   badgeColor: string;
   previewGradient: string;

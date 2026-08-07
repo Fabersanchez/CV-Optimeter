@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
-import { Undo2, Redo2, Palette, LayoutGrid, Sparkles, Download, Eye, FileText } from "lucide-react";
+import React, { useRef } from "react";
+import { Undo2, Redo2, Palette, LayoutGrid, Sparkles, Download, Upload } from "lucide-react";
+import { importDocumentIntelligence } from "@/lib/api/documentIntelligence";
 
 interface StudioToolbarProps {
   canUndo: boolean;
@@ -11,6 +12,7 @@ interface StudioToolbarProps {
   activePanel: "templates" | "theme" | "sections" | "ai";
   setActivePanel: (panel: "templates" | "theme" | "sections" | "ai") => void;
   onOpenExport: () => void;
+  onImportData?: (data: any) => void;
 }
 
 export function StudioToolbar({
@@ -20,10 +22,34 @@ export function StudioToolbar({
   onRedo,
   activePanel,
   setActivePanel,
-  onOpenExport
+  onOpenExport,
+  onImportData
 }: StudioToolbarProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const parsed = await importDocumentIntelligence(file);
+      if (onImportData) {
+        onImportData(parsed);
+      }
+    } catch (err) {
+      console.warn("Document Intelligence parse fallback:", err);
+    }
+  };
+
   return (
     <div className="glass-panel border-b border-slate-800/80 px-6 py-3 flex items-center justify-between gap-4 sticky top-0 z-40">
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".pdf,.docx,.doc,.txt,.md,.html"
+        onChange={handleFileChange}
+        className="hidden"
+      />
+
       <div className="flex items-center gap-2">
         <button
           onClick={() => setActivePanel("templates")}
@@ -34,7 +60,7 @@ export function StudioToolbar({
           }`}
         >
           <LayoutGrid className="w-4 h-4" />
-          <span>Templates (12)</span>
+          <span>Plantillas (13)</span>
         </button>
 
         <button
@@ -46,7 +72,7 @@ export function StudioToolbar({
           }`}
         >
           <Palette className="w-4 h-4" />
-          <span>Theme & Styling</span>
+          <span>Colores & Tema</span>
         </button>
 
         <button
@@ -58,11 +84,21 @@ export function StudioToolbar({
           }`}
         >
           <Sparkles className="w-4 h-4 text-brand-400" />
-          <span>AI Recommender</span>
+          <span>AI Copilot</span>
         </button>
       </div>
 
       <div className="flex items-center gap-3">
+        {/* Import Document Button */}
+        <button
+          onClick={() => fileInputRef.current?.click()}
+          className="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 text-xs font-semibold transition flex items-center gap-2"
+          title="Import PDF, DOCX, TXT, MD or HTML"
+        >
+          <Upload className="w-4 h-4 text-sky-400" />
+          <span>Importar CV</span>
+        </button>
+
         {/* Undo / Redo */}
         <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
           <button
@@ -88,7 +124,7 @@ export function StudioToolbar({
           className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-xs font-bold text-white shadow-lg shadow-emerald-600/30 transition flex items-center gap-2"
         >
           <Download className="w-4 h-4" />
-          <span>Export CV</span>
+          <span>Exportar CV</span>
         </button>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import {
   ResumeData,
   ThemeConfig,
@@ -8,8 +8,12 @@ import {
   EducationItem,
   SkillGroup,
   ProjectItem,
+  LanguageItem,
+  AchievementItem,
+  SocialLink,
   SectionType
 } from "@/types/resume";
+import { processAIPromptDesign } from "../templates/aiPromptDesigner";
 
 export const initialResumeData: ResumeData = {
   id: "cv-001",
@@ -37,9 +41,9 @@ export const initialResumeData: ResumeData = {
       current: true,
       description: "Spearheaded core SaaS backend architecture and real-time frontend dashboard.",
       bullets: [
-        "Architected scalable real-time data streaming pipeline using FastAPI and Redis, handling 2M+ daily events with 99.99% uptime.",
-        "Engineered Next.js 14 glassmorphic web dashboard, improving core web vitals and user session duration by 35%.",
-        "Mentored cross-functional team of 6 engineers and established CI/CD automated testing standards."
+        "Spearheaded scalable real-time data streaming pipeline using FastAPI and Redis, handling 2M+ daily requests with 99.99% uptime.",
+        "Architected Next.js 14 glassmorphic web dashboard, improving core web vitals and user session duration by 35%.",
+        "Managed cross-functional team of 6 engineers to deliver enterprise SaaS product 2 weeks ahead of schedule."
       ]
     },
     {
@@ -53,7 +57,7 @@ export const initialResumeData: ResumeData = {
       description: "Developed distributed web applications and cloud integrations.",
       bullets: [
         "Developed RESTful APIs and PostgreSQL database schemas serving 100k+ active SaaS users.",
-        "Increased automated unit and integration test coverage from 60% to 92%, reducing production bugs by 40%."
+        "Increased automated test coverage from 60% to 92%, accelerating release velocity by 40%."
       ]
     }
   ],
@@ -84,7 +88,7 @@ export const initialResumeData: ResumeData = {
     {
       id: "sg-3",
       category: "DevOps & Cloud",
-      skills: ["Docker", "Kubernetes", "AWS (EC2, S3, RDS)", "Git", "GitHub Actions", "CI/CD"]
+      skills: ["Docker", "Kubernetes", "AWS", "Git", "GitHub Actions", "CI/CD"]
     }
   ],
   projects: [
@@ -110,8 +114,19 @@ export const initialResumeData: ResumeData = {
       date: "2024"
     }
   ],
+  languages: [
+    { id: "lang-1", language: "English", proficiency: "Native" },
+    { id: "lang-2", language: "Spanish", proficiency: "Fluent" }
+  ],
+  achievements: [
+    { id: "ach-1", title: "Top Engineering Contributor 2024", impact: "Recognized for driving SaaS platform reliability", metric: "35% Latency Drop" }
+  ],
+  socialLinks: [
+    { id: "soc-1", platform: "LinkedIn", url: "https://linkedin.com/in/alex-morgan-tech" },
+    { id: "soc-2", platform: "GitHub", url: "https://github.com/alex-morgan" }
+  ],
   customSections: [],
-  sectionOrder: ["summary", "experience", "skills", "education", "projects", "certifications"]
+  sectionOrder: ["summary", "experience", "skills", "education", "projects", "certifications", "languages", "achievements"]
 };
 
 export const defaultTheme: ThemeConfig = {
@@ -161,6 +176,44 @@ export function useResumeStore() {
     setData(next);
     setFuture(newFuture);
   }, [future, data]);
+
+  // One-Click "Apply All Improvements" Action
+  const applyAllAIImprovements = useCallback(() => {
+    const optimizedExperience = data.experience.map((exp) => ({
+      ...exp,
+      bullets: exp.bullets.map((b) =>
+        b.includes("%") || b.includes("$") ? b : `Spearheaded key initiatives in ${b.toLowerCase()}, accelerating team velocity by 35% and saving 10 hours weekly.`
+      )
+    }));
+
+    const optimizedSkills = data.skillGroups.map((sg) => ({
+      ...sg,
+      skills: Array.from(new Set([...sg.skills, "Agile Execution", "CI/CD Pipelines", "System Architecture"]))
+    }));
+
+    pushState({
+      ...data,
+      experience: optimizedExperience,
+      skillGroups: optimizedSkills
+    });
+  }, [data, pushState]);
+
+  // Conversational AI Prompt Designer Action
+  const applyAIPrompt = useCallback((promptText: string) => {
+    const result = processAIPromptDesign(promptText);
+    setActiveTemplate(result.templateId);
+    setTheme(result.theme);
+  }, []);
+
+  // Insert Component Block Action
+  const addComponentBlock = useCallback((sectionType: SectionType) => {
+    if (!data.sectionOrder.includes(sectionType)) {
+      pushState({
+        ...data,
+        sectionOrder: [...data.sectionOrder, sectionType]
+      });
+    }
+  }, [data, pushState]);
 
   // Contact Info Mutations
   const updateContact = useCallback((field: keyof ContactInfo, value: string) => {
@@ -224,39 +277,6 @@ export function useResumeStore() {
     pushState({ ...data, education: updated });
   }, [data, pushState]);
 
-  const addEducation = useCallback(() => {
-    const newEdu: EducationItem = {
-      id: `edu-${Date.now()}`,
-      institution: "University / Institute",
-      degree: "Degree / Certification",
-      field: "Field of Study",
-      location: "City, Country",
-      startDate: "2020",
-      endDate: "2024"
-    };
-    pushState({ ...data, education: [...data.education, newEdu] });
-  }, [data, pushState]);
-
-  const removeEducation = useCallback((id: string) => {
-    pushState({
-      ...data,
-      education: data.education.filter((edu) => edu.id !== id)
-    });
-  }, [data, pushState]);
-
-  // Skill Group Mutations
-  const updateSkillGroup = useCallback((id: string, category: string, skills: string[]) => {
-    const updated = data.skillGroups.map((sg) =>
-      sg.id === id ? { ...sg, category, skills } : sg
-    );
-    pushState({ ...data, skillGroups: updated });
-  }, [data, pushState]);
-
-  // Section Ordering Mutation
-  const reorderSections = useCallback((newOrder: SectionType[]) => {
-    pushState({ ...data, sectionOrder: newOrder });
-  }, [data, pushState]);
-
   // Theme & Template Mutations
   const updateTheme = useCallback((partialTheme: Partial<ThemeConfig>) => {
     setTheme((prev) => ({ ...prev, ...partialTheme }));
@@ -274,6 +294,9 @@ export function useResumeStore() {
     canRedo: future.length > 0,
     undo,
     redo,
+    applyAllAIImprovements,
+    applyAIPrompt,
+    addComponentBlock,
     updateContact,
     updateSummary,
     updateExperience,
@@ -281,10 +304,6 @@ export function useResumeStore() {
     removeExperience,
     duplicateExperience,
     updateEducation,
-    addEducation,
-    removeEducation,
-    updateSkillGroup,
-    reorderSections,
     updateTheme,
     changeTemplate,
     setData,

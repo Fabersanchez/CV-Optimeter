@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { TemplateCategory, ThemeConfig } from "@/types/resume";
 import { TemplateGallery } from "./TemplateGallery";
 import { ThemeCustomizer } from "./ThemeCustomizer";
-import { recommendTemplates } from "@/lib/templates/aiRecommender";
-import { Sparkles, Wand2, Check } from "lucide-react";
+import { recommendTemplatesLocal, AIRecommendation } from "@/lib/templates/aiRecommender";
+import { Sparkles, Check } from "lucide-react";
 
 interface StudioSidebarProps {
   activePanel: "templates" | "theme" | "sections" | "ai";
@@ -25,7 +25,7 @@ export function StudioSidebar({
   onUpdateTheme
 }: StudioSidebarProps) {
   const [aiPrompt, setAiPrompt] = useState(roleTitle || "Senior Software Engineer");
-  const recommendations = recommendTemplates(aiPrompt);
+  const recommendations = recommendTemplatesLocal(aiPrompt);
 
   return (
     <aside className="w-80 glass-panel border-r border-slate-800/80 p-4 shrink-0 overflow-y-auto max-h-[calc(100vh-120px)] space-y-6">
@@ -58,7 +58,7 @@ export function StudioSidebar({
           <div className="space-y-3 pt-2">
             <p className="text-[10px] font-extrabold uppercase text-slate-400">Top Recommended Templates</p>
 
-            {recommendations.map((rec, idx) => (
+            {recommendations.map((rec: AIRecommendation, idx: number) => (
               <div
                 key={idx}
                 onClick={() => onSelectTemplate(rec.template.id)}
@@ -78,7 +78,7 @@ export function StudioSidebar({
                 <p className="text-[11px] text-slate-400 leading-snug">{rec.reason}</p>
 
                 <div className="space-y-1 pt-1 border-t border-slate-800">
-                  {rec.keyBenefits.map((b, bIdx) => (
+                  {rec.keyBenefits.map((b: string, bIdx: number) => (
                     <p key={bIdx} className="text-[9px] text-slate-400 flex items-center gap-1">
                       <Check className="w-3 h-3 text-emerald-400 shrink-0" /> {b}
                     </p>

@@ -1,0 +1,206 @@
+Metadata-Version: 2.4
+Name: cv-optimeter-ai
+Version: 1.0.0
+Summary: Enterprise AI-powered Resume Optimization & ATS Analysis SaaS Platform
+Author-email: CV Optimeter AI Team <support@cvoptimeter.ai>
+License: MIT
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+<div align="center">
+
+# 🚀 CV Optimeter AI
+
+**Enterprise-Grade AI SaaS Platform for Resume Optimization & Professional ATS Analysis**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-009688.svg?style=flat&logo=fastapi)](https://fastapi.tiangolo.com)
+[![Next.js](https://img.shields.io/badge/Next.js-14+-000000.svg?style=flat&logo=next.js)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6.svg?style=flat&logo=typescript)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4+-38BDF8.svg?style=flat&logo=tailwindcss)](https://tailwindcss.com)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg?style=flat&logo=docker)](https://www.docker.com)
+
+[Explore Documentation](docs/architecture.md) · [Report Bug](.github/ISSUE_TEMPLATE/bug_report.md) · [Request Feature](.github/ISSUE_TEMPLATE/feature_request.md)
+
+</div>
+
+---
+
+## 📌 Overview
+
+**CV Optimeter AI** is an open-source, production-ready SaaS platform engineered to optimize resumes using Artificial Intelligence and Applicant Tracking System (ATS) parsing algorithms. 
+
+It helps job candidates maximize interview conversion rates by auditing resumes against 5 core ATS pillars, providing STAR-framework bullet point rewrites, gap-analyzing job descriptions, generating tailored cover letters, and optimizing LinkedIn profiles.
+
+---
+
+## ✨ Key Features
+
+- 📄 **Multi-Format Document Parsing:** Instant text, contact details, and section extraction from PDF, DOCX, and TXT files.
+- 🎯 **ATS Scoring Engine (0-100):** Comprehensive audit across Action Verbs, Measurable Metrics, Hard Skills Density, Formatting Structure, and Brevity.
+- 🪄 **AI STAR Bullet Rewriter:** Automatically transforms weak experience bullet points into high-impact STAR (Situation, Task, Action, Result) achievements with metrics.
+- 🔍 **Job Description Matcher:** Side-by-side keyword overlap analysis detecting missing hard/soft skills and fit percentage.
+- ✉️ **AI Cover Letter Generator:** Crafts personalized, high-converting cover letters tailored to target companies and roles.
+- 💼 **LinkedIn Profile Optimizer:** Generates executive headlines, About summaries, and featured skill matrices.
+- 📊 **Analytics & Metrics Dashboard:** Interactive charts built with Recharts tracking score progression and impact statistics.
+- 🕒 **Version Control & Revisions:** Revision logging allowing side-by-side comparison and past iteration restoring.
+- 📥 **Export Studio:** Downloads optimized resumes in clean HTML, DOCX, and printable vector PDF formats.
+
+---
+
+## 📷 Interface Screenshots & Mockups
+
+| Module | Preview |
+| ------ | ------- |
+| **ATS Diagnostics** | ![ATS Diagnostics](assets/screenshots/ats-diagnostics.png) |
+| **AI STAR Rewriter** | ![AI STAR Rewriter](assets/screenshots/star-rewriter.png) |
+| **Job Offer Matcher** | ![Job Matcher](assets/screenshots/job-matcher.png) |
+| **Analytics Dashboard**| ![Analytics Dashboard](assets/screenshots/analytics-dashboard.png) |
+
+---
+
+## 🛠️ Technology Stack
+
+### Frontend
+- **Framework:** Next.js 14 (App Router, TypeScript)
+- **Styling:** Tailwind CSS (Dark/Light Glassmorphism)
+- **UI Components & Icons:** Lucide Icons, Framer Motion, Recharts
+
+### Backend
+- **Framework:** FastAPI (Python 3.11+)
+- **Parser Engine:** `pypdf`, `python-docx`
+- **AI & NLP:** Dual Engine (OpenAI GPT-4o API integration + Local NLP Rule Fallback)
+- **Data Validation:** Pydantic v2
+
+### Infrastructure & Database
+- **Database:** PostgreSQL (SQLAlchemy)
+- **Cache:** Redis
+- **Containerization:** Docker & Docker Compose
+
+---
+
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    User([Candidate / Client Browser]) -->|HTTPS REST API| Frontend[Next.js 14 Web App\nTypeScript + Tailwind]
+    
+    subgraph FastAPI Core Engine
+        Frontend -->|JSON Requests| API[FastAPI Server\nPython 3.11]
+        API --> Parser[Document Parser\nPDF / DOCX Extractor]
+        API --> ATS[ATS Scoring Engine\n5 Pillar Matrix Engine]
+        API --> AI[AI Engine\nGPT-4o + Local NLP Fallback]
+        API --> Export[Export Studio\nHTML / DOCX / PDF]
+    end
+
+    subgraph Infrastructure
+        API --> DB[(PostgreSQL Database)]
+        API --> Cache[(Redis Cache / Tasks)]
+    end
+```
+
+---
+
+## 🚀 Quick Start & Installation
+
+### Prerequisites
+- Node.js >= 18.x
+- Python >= 3.11
+- Docker & Docker Compose (Optional)
+
+### Option 1: Running with Docker Compose (Recommended)
+
+```bash
+# Clone repository
+git clone https://github.com/your-username/cv-optimeter-ai.git
+cd cv-optimeter-ai
+
+# Copy environment variables
+cp .env.example .env
+
+# Start full stack
+docker-compose up -d --build
+```
+Access the application at `http://localhost:3000` and API docs at `http://localhost:8000/api/v1/docs`.
+
+### Option 2: Running Locally for Development
+
+#### 1. Backend Setup
+```bash
+cd backend
+python -m venv venv
+# On Windows: venv\Scripts\activate | On Linux/macOS: source venv/bin/activate
+pip install -r requirements.txt
+python -m uvicorn app.main:app --reload --port 8000
+```
+
+#### 2. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## 📖 API Documentation
+
+FastAPI automatically generates interactive Swagger & ReDoc documentation:
+- **Swagger UI:** `http://127.0.0.1:8000/api/v1/docs`
+- **OpenAPI Schema:** `http://127.0.0.1:8000/api/v1/openapi.json`
+
+### Key Endpoints
+- `POST /api/v1/cv/upload` - Upload & parse PDF/DOCX document
+- `POST /api/v1/ats/analyze` - Calculate 0-100 ATS Score & diagnostics
+- `POST /api/v1/ai/rewrite-bullet` - STAR bullet point rewriting
+- `POST /api/v1/ats/match-job` - Job Description vs Resume comparison
+- `POST /api/v1/cover-letter/generate` - Generate tailored cover letter
+- `POST /api/v1/linkedin/optimize` - Generate LinkedIn headlines & summary
+
+---
+
+## ⚙️ Environment Variables
+
+Copy `.env.example` to `.env` and configure key options:
+
+```ini
+PROJECT_NAME="CV Optimeter AI"
+SECRET_KEY="your-super-secret-key"
+
+# Optional: Add OpenAI Key for LLM rewriting.
+# If omitted, system seamlessly uses local NLP engine.
+OPENAI_API_KEY=""
+OPENAI_MODEL="gpt-4o"
+
+# Database
+DATABASE_URL="postgresql+asyncpg://postgres:password@localhost:5432/cv_optimeter_db"
+REDIS_URL="redis://localhost:6379/0"
+```
+
+---
+
+## 🛣️ Roadmap
+
+See [ROADMAP.md](ROADMAP.md) for planned milestones, including multilingual parsing, direct job post scraping, and team collaboration.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before submitting Pull Requests.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 📬 Contact & Support
+
+- **Issue Tracker:** [GitHub Issues](https://github.com/your-username/cv-optimeter-ai/issues)
+- **Support:** [SUPPORT.md](SUPPORT.md)
+- **Email:** `support@cvoptimeter.ai`

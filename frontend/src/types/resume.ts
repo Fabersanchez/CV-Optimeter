@@ -7,6 +7,7 @@ export interface ContactInfo {
   linkedin: string;
   github: string;
   website: string;
+  photoUrl?: string;
 }
 
 export interface WorkExperience {
@@ -113,18 +114,33 @@ export interface ResumeData {
 
 export type TemplateCategory =
   | "ats-professional"
-  | "executive"
+  | "ats-compact"
+  | "ats-academic"
+  | "ats-technical"
+  | "ats-executive"
+  | "modern-professional"
   | "corporate"
+  | "clean-hybrid"
+  | "strategic-lead"
+  | "operations-lead"
+  | "executive"
+  | "senior-executive"
+  | "board-director"
   | "technology"
+  | "technical-specialist"
+  | "data-ai"
   | "engineering"
-  | "medical"
-  | "finance"
-  | "legal-marketing"
+  | "cloud-infrastructure"
   | "academic"
+  | "publication-heavy"
   | "creative"
+  | "portfolio-design"
   | "minimalist"
+  | "high-contrast-minimal"
   | "startup"
-  | "ai-generated";
+  | "high-growth-scaleup"
+  | "medical"
+  | "legal";
 
 export type FontPairing =
   | "inter"

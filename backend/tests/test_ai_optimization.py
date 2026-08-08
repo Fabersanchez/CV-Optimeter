@@ -1,8 +1,3 @@
-import sys
-import os
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from app.services.ai_optimization.star_engine import STAREngine
 from app.services.ai_optimization.summary_engine import SummaryEngine
 from app.services.ai_optimization.skills_optimizer import SkillsOptimizerEngine

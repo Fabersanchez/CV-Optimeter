@@ -8,8 +8,8 @@ class ResumeDNAEngine:
 
         return {
             "candidateId": cv_data.get("id", "cv-001"),
-            "candidateName": contact.get("name", "Alex Morgan"),
-            "primaryTitle": contact.get("title", "Senior Full Stack & AI Systems Architect"),
+            "candidateName": contact.get("name") or "Candidate Name",
+            "primaryTitle": contact.get("title") or "Software Professional",
             "targetIndustry": "Technology / Enterprise SaaS",
             "seniorityLevel": "Senior / Architect",
             "primaryLanguage": "English (Native)",

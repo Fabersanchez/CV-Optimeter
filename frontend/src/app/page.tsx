@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Sidebar, TabType } from "@/components/Sidebar";
 import { ResumeStudio } from "@/components/studio/ResumeStudio";
@@ -12,6 +12,7 @@ import { LinkedInTab } from "@/components/tabs/LinkedInTab";
 import { MetricsTab } from "@/components/tabs/MetricsTab";
 import { VersionHistoryTab } from "@/components/tabs/VersionHistoryTab";
 import { ExportStudioTab } from "@/components/tabs/ExportStudioTab";
+import { DocumentSessionProvider } from "@/lib/store/useDocumentSessionStore";
 import { ParsedCVData, ATSAnalysisResult } from "@/lib/api";
 
 export default function DashboardPage() {
@@ -20,14 +21,15 @@ export default function DashboardPage() {
   const [atsResult, setAtsResult] = useState<ATSAnalysisResult | null>(null);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
-      <Header />
+    <DocumentSessionProvider>
+      <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans">
+        <Header />
 
-      <div className="flex flex-1">
-        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+        <div className="flex flex-1">
+          <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-        <main className="flex-1 overflow-y-auto max-w-7xl mx-auto w-full">
-          {activeTab === "studio" && <ResumeStudio />}
+          <main className="flex-1 overflow-y-auto max-w-7xl mx-auto w-full">
+            {activeTab === "studio" && <ResumeStudio />}
 
           {activeTab === "analyzer" && (
             <div className="p-6 md:p-8">
@@ -56,5 +58,6 @@ export default function DashboardPage() {
         </main>
       </div>
     </div>
-  );
+  </DocumentSessionProvider>
+);
 }

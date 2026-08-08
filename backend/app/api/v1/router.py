@@ -1,16 +1,18 @@
 from fastapi import APIRouter
 
-from .endpoints import cv, ats, ai, cover_letter, linkedin, metrics, export
-from ..document_intelligence_router import router as document_intelligence_router
-from ..ats_x_router import router as ats_x_router
-from ..ai_optimization_router import router as ai_optimization_router
-from ..job_intelligence_router import router as job_intelligence_router
-from ..career_intelligence_router import router as career_intelligence_router
-from ..intelligence_platform_router import router as intelligence_platform_router
-from ..enterprise_router import router as enterprise_router
+from app.api.v1.endpoints import cv, ats, ai, cover_letter, linkedin, metrics, export, documents, templates
+from app.api.document_intelligence_router import router as document_intelligence_router
+from app.api.ats_x_router import router as ats_x_router
+from app.api.ai_optimization_router import router as ai_optimization_router
+from app.api.job_intelligence_router import router as job_intelligence_router
+from app.api.career_intelligence_router import router as career_intelligence_router
+from app.api.intelligence_platform_router import router as intelligence_platform_router
+from app.api.enterprise_router import router as enterprise_router
 
 api_router = APIRouter()
 
+api_router.include_router(templates.router)
+api_router.include_router(documents.router)
 api_router.include_router(document_intelligence_router)
 api_router.include_router(ats_x_router)
 api_router.include_router(ai_optimization_router)

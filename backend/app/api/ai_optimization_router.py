@@ -1,9 +1,9 @@
 from fastapi import APIRouter
 from typing import Dict, Any, Optional, List
-from ..services.ai_optimization.resume_optimizer import ResumeOptimizerEngine
-from ..services.ai_optimization.star_engine import STAREngine
-from ..services.ai_optimization.summary_engine import SummaryEngine
-from ..services.ai_optimization.resume_dna_engine import ResumeDNAEngine
+from app.services.ai_optimization.resume_optimizer import ResumeOptimizerEngine
+from app.services.ai_optimization.star_engine import STAREngine
+from app.services.ai_optimization.summary_engine import SummaryEngine
+from app.services.ai_optimization.resume_dna_engine import ResumeDNAEngine
 
 router = APIRouter(prefix="/api/v1/ai-optimization", tags=["AI Optimization Engine"])
 optimizer = ResumeOptimizerEngine()

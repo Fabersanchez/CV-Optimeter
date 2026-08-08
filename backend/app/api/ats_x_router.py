@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 from typing import Dict, Any, List, Optional
-from ..services.ats_x.ats_scoring_engine import ATSScoringEngine
-from ..services.ats_x.keyword_intelligence import KeywordIntelligenceEngine
-from ..services.ats_x.achievement_analyzer import AchievementAnalyzer
-from ..services.ats_x.ats_simulator import ATSSimulatorEngine
-from ..services.ats_x.report_generator import ReportGeneratorEngine
+from app.services.ats_x.ats_scoring_engine import ATSScoringEngine
+from app.services.ats_x.keyword_intelligence import KeywordIntelligenceEngine
+from app.services.ats_x.achievement_analyzer import AchievementAnalyzer
+from app.services.ats_x.ats_simulator import ATSSimulatorEngine
+from app.services.ats_x.report_generator import ReportGeneratorEngine
 
 router = APIRouter(prefix="/api/v1/ats-x", tags=["ATS-X Intelligence Engine"])
 

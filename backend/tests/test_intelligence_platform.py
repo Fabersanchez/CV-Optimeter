@@ -1,15 +1,10 @@
-import sys
-import os
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from app.services.intelligence_platform.resume_dna_engine import ResumeDNAEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.intelligence_platform.career_evolution_engine import CareerEvolutionEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.intelligence_platform.analytics_engine import AnalyticsEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.intelligence_platform.benchmark_engine import BenchmarkEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.intelligence_platform.goals_engine import GoalsEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.intelligence_platform.notification_engine import NotificationEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.intelligence_platform.insights_engine import RecruiterInsightsEngine  # type: ignore # pyrefly: ignore [missing-import]
+from app.services.intelligence_platform.resume_dna_engine import ResumeDNAEngine
+from app.services.intelligence_platform.career_evolution_engine import CareerEvolutionEngine
+from app.services.intelligence_platform.analytics_engine import AnalyticsEngine
+from app.services.intelligence_platform.benchmark_engine import BenchmarkEngine
+from app.services.intelligence_platform.goals_engine import GoalsEngine
+from app.services.intelligence_platform.notification_engine import NotificationEngine
+from app.services.intelligence_platform.insights_engine import RecruiterInsightsEngine
 
 def test_intelligence_platform_suite():
     sample_cv = {

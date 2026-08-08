@@ -11,6 +11,15 @@ requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "CV Optimeter AI Team", email = "support@cvoptimeter.ai" }]
 
+[tool.setuptools.packages.find]
+where = ["backend"]
+
+[tool.pyright]
+include = ["backend"]
+extraPaths = ["backend"]
+typeCheckingMode = "basic"
+pythonVersion = "3.11"
+
 [tool.black]
 line-length = 100
 target-version = ['py311']
@@ -24,5 +33,6 @@ ignore = ["E501"]
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra -q --cov=app"
+addopts = "-ra -q -s"
 testpaths = ["backend/tests"]
+pythonpath = ["backend"]

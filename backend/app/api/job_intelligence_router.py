@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 from typing import Dict, Any, Optional
-from ..services.job_intelligence.job_parser import JobParserEngine
-from ..services.job_intelligence.semantic_match import SemanticMatchEngine
-from ..services.job_intelligence.competitiveness import CompetitivenessEngine
-from ..services.job_intelligence.roadmap_generator import RoadmapGeneratorEngine
-from ..services.job_intelligence.vacancy_optimizer import VacancyOptimizerEngine
+from app.services.job_intelligence.job_parser import JobParserEngine
+from app.services.job_intelligence.semantic_match import SemanticMatchEngine
+from app.services.job_intelligence.competitiveness import CompetitivenessEngine
+from app.services.job_intelligence.roadmap_generator import RoadmapGeneratorEngine
+from app.services.job_intelligence.vacancy_optimizer import VacancyOptimizerEngine
 
 router = APIRouter(prefix="/api/v1/job-intelligence", tags=["Job Intelligence Platform"])
 

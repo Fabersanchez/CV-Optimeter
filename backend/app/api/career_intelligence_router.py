@@ -1,12 +1,12 @@
 from fastapi import APIRouter
 from typing import Dict, Any
-from ..services.career_intelligence.career_coach_engine import CareerCoachEngine
-from ..services.career_intelligence.cover_letter_engine import CoverLetterEngine
-from ..services.career_intelligence.linkedin_optimizer import LinkedInOptimizerEngine
-from ..services.career_intelligence.interview_simulator import InterviewSimulatorEngine
-from ..services.career_intelligence.career_roadmap_engine import CareerRoadmapEngine
-from ..services.career_intelligence.networking_assistant import NetworkingAssistantEngine
-from ..services.career_intelligence.application_tracker import ApplicationTrackerEngine
+from app.services.career_intelligence.career_coach_engine import CareerCoachEngine
+from app.services.career_intelligence.cover_letter_engine import CoverLetterEngine
+from app.services.career_intelligence.linkedin_optimizer import LinkedInOptimizerEngine
+from app.services.career_intelligence.interview_simulator import InterviewSimulatorEngine
+from app.services.career_intelligence.career_roadmap_engine import CareerRoadmapEngine
+from app.services.career_intelligence.networking_assistant import NetworkingAssistantEngine
+from app.services.career_intelligence.application_tracker import ApplicationTrackerEngine
 
 router = APIRouter(prefix="/api/v1/career", tags=["Career Intelligence Platform"])
 tracker_service = ApplicationTrackerEngine()

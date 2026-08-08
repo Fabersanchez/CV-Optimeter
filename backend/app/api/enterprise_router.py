@@ -1,14 +1,14 @@
 from fastapi import APIRouter
 from typing import Dict, Any
-from ..core.enterprise.auth_engine import AuthenticationEngine
-from ..core.enterprise.rbac_engine import RBACEngine
-from ..core.enterprise.organization_engine import OrganizationEngine
-from ..core.enterprise.subscription_billing import SubscriptionBillingGateway
-from ..core.enterprise.security_center import SecurityCenterEngine
-from ..core.enterprise.audit_system import AuditSystemEngine
-from ..core.enterprise.feature_flags import FeatureFlagEngine
-from ..core.enterprise.plugin_architecture import PluginArchitectureManager
-from ..core.enterprise.admin_console import AdminConsoleEngine
+from app.core.enterprise.auth_engine import AuthenticationEngine
+from app.core.enterprise.rbac_engine import RBACEngine
+from app.core.enterprise.organization_engine import OrganizationEngine
+from app.core.enterprise.subscription_billing import SubscriptionBillingGateway
+from app.core.enterprise.security_center import SecurityCenterEngine
+from app.core.enterprise.audit_system import AuditSystemEngine
+from app.core.enterprise.feature_flags import FeatureFlagEngine
+from app.core.enterprise.plugin_architecture import PluginArchitectureManager
+from app.core.enterprise.admin_console import AdminConsoleEngine
 
 router = APIRouter(prefix="/api/v1/enterprise", tags=["Enterprise Infrastructure"])
 audit_service = AuditSystemEngine()

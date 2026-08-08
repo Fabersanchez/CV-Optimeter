@@ -11,7 +11,7 @@ interface ExportStudioTabProps {
 export function ExportStudioTab({ parsedData }: ExportStudioTabProps) {
   const [downloadingFormat, setDownloadingFormat] = useState<string | null>(null);
 
-  const candidateName = parsedData?.contact_info.name || "Alex Morgan";
+  const candidateName = parsedData?.contact_info.name || "Candidate";
 
   const handleDownloadHTML = () => {
     setDownloadingFormat("html");

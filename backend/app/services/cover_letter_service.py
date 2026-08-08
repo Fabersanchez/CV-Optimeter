@@ -23,7 +23,7 @@ class CoverLetterService:
 
     @staticmethod
     def _local_cover_letter_template(name: str, role: str, company: str, target_role: str, tone: str) -> str:
-        name = name if name and name != "Candidate Profile" else "Alex Morgan"
+        name = name if name and name != "Candidate Profile" else "Candidate Name"
         company = company if company else "Target Company"
         target_role = target_role if target_role else "Senior Role"
 

@@ -1,8 +1,3 @@
-import sys
-import os
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from app.services.ats_x.ats_scoring_engine import ATSScoringEngine
 from app.services.ats_x.keyword_intelligence import KeywordIntelligenceEngine
 from app.services.ats_x.achievement_analyzer import AchievementAnalyzer

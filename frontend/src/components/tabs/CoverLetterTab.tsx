@@ -5,7 +5,7 @@ import { FileText, Sparkles, Copy, Check, Download } from "lucide-react";
 import { generateCoverLetter } from "@/lib/api";
 
 export function CoverLetterTab() {
-  const [candidateName, setCandidateName] = useState("Alex Morgan");
+  const [candidateName, setCandidateName] = useState("Candidate Name");
   const [currentRole, setCurrentRole] = useState("Senior Software Engineer");
   const [companyName, setCompanyName] = useState("Stripe");
   const [targetRole, setTargetRole] = useState("Staff Backend Engineer");

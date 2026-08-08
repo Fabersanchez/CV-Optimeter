@@ -1,13 +1,8 @@
-import sys
-import os
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from app.services.job_intelligence.job_parser import JobParserEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.job_intelligence.semantic_match import SemanticMatchEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.job_intelligence.competitiveness import CompetitivenessEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.job_intelligence.roadmap_generator import RoadmapGeneratorEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.job_intelligence.vacancy_optimizer import VacancyOptimizerEngine  # type: ignore # pyrefly: ignore [missing-import]
+from app.services.job_intelligence.job_parser import JobParserEngine
+from app.services.job_intelligence.semantic_match import SemanticMatchEngine
+from app.services.job_intelligence.competitiveness import CompetitivenessEngine
+from app.services.job_intelligence.roadmap_generator import RoadmapGeneratorEngine
+from app.services.job_intelligence.vacancy_optimizer import VacancyOptimizerEngine
 
 def test_job_intelligence_suite():
     sample_job_text = """

@@ -1,0 +1,3 @@
+"""
+CV Optimeter AI — API v1 Endpoints Package
+"""

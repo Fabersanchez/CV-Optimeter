@@ -1,12 +1,12 @@
 from fastapi import APIRouter
 from typing import Dict, Any
-from ..services.intelligence_platform.analytics_engine import AnalyticsEngine
-from ..services.intelligence_platform.resume_dna_engine import ResumeDNAEngine
-from ..services.intelligence_platform.career_evolution_engine import CareerEvolutionEngine
-from ..services.intelligence_platform.benchmark_engine import BenchmarkEngine
-from ..services.intelligence_platform.goals_engine import GoalsEngine
-from ..services.intelligence_platform.notification_engine import NotificationEngine
-from ..services.intelligence_platform.insights_engine import RecruiterInsightsEngine
+from app.services.intelligence_platform.analytics_engine import AnalyticsEngine
+from app.services.intelligence_platform.resume_dna_engine import ResumeDNAEngine
+from app.services.intelligence_platform.career_evolution_engine import CareerEvolutionEngine
+from app.services.intelligence_platform.benchmark_engine import BenchmarkEngine
+from app.services.intelligence_platform.goals_engine import GoalsEngine
+from app.services.intelligence_platform.notification_engine import NotificationEngine
+from app.services.intelligence_platform.insights_engine import RecruiterInsightsEngine
 
 router = APIRouter(prefix="/api/v1/intelligence", tags=["Intelligence Platform & Analytics"])
 goals_service = GoalsEngine()

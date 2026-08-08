@@ -1,17 +1,12 @@
-import sys
-import os
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from app.core.enterprise.auth_engine import AuthenticationEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.core.enterprise.rbac_engine import RBACEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.core.enterprise.organization_engine import OrganizationEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.core.enterprise.subscription_billing import SubscriptionBillingGateway  # type: ignore # pyrefly: ignore [missing-import]
-from app.core.enterprise.security_center import SecurityCenterEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.core.enterprise.audit_system import AuditSystemEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.core.enterprise.feature_flags import FeatureFlagEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.core.enterprise.plugin_architecture import PluginArchitectureManager  # type: ignore # pyrefly: ignore [missing-import]
-from app.core.enterprise.admin_console import AdminConsoleEngine  # type: ignore # pyrefly: ignore [missing-import]
+from app.core.enterprise.auth_engine import AuthenticationEngine
+from app.core.enterprise.rbac_engine import RBACEngine
+from app.core.enterprise.organization_engine import OrganizationEngine
+from app.core.enterprise.subscription_billing import SubscriptionBillingGateway
+from app.core.enterprise.security_center import SecurityCenterEngine
+from app.core.enterprise.audit_system import AuditSystemEngine
+from app.core.enterprise.feature_flags import FeatureFlagEngine
+from app.core.enterprise.plugin_architecture import PluginArchitectureManager
+from app.core.enterprise.admin_console import AdminConsoleEngine
 
 def test_enterprise_infrastructure_suite():
     print("--- 1. Testing Authentication & JWT Engine ---")

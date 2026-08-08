@@ -1,9 +1,3 @@
-import sys
-import os
-
-# Add backend directory to path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from app.services.document_intelligence.parser_engine import parse_text_into_cv_structure
 from app.services.document_intelligence.section_detector import detect_section_type
 from app.services.document_intelligence.normalizer_engine import normalize_candidate_data

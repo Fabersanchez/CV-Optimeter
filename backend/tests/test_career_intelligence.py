@@ -1,15 +1,10 @@
-import sys
-import os
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from app.services.career_intelligence.career_coach_engine import CareerCoachEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.career_intelligence.cover_letter_engine import CoverLetterEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.career_intelligence.linkedin_optimizer import LinkedInOptimizerEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.career_intelligence.interview_simulator import InterviewSimulatorEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.career_intelligence.career_roadmap_engine import CareerRoadmapEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.career_intelligence.networking_assistant import NetworkingAssistantEngine  # type: ignore # pyrefly: ignore [missing-import]
-from app.services.career_intelligence.application_tracker import ApplicationTrackerEngine  # type: ignore # pyrefly: ignore [missing-import]
+from app.services.career_intelligence.career_coach_engine import CareerCoachEngine
+from app.services.career_intelligence.cover_letter_engine import CoverLetterEngine
+from app.services.career_intelligence.linkedin_optimizer import LinkedInOptimizerEngine
+from app.services.career_intelligence.interview_simulator import InterviewSimulatorEngine
+from app.services.career_intelligence.career_roadmap_engine import CareerRoadmapEngine
+from app.services.career_intelligence.networking_assistant import NetworkingAssistantEngine
+from app.services.career_intelligence.application_tracker import ApplicationTrackerEngine
 
 def test_career_intelligence_suite():
     sample_cv = {

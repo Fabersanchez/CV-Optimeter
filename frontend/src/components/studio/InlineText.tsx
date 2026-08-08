@@ -12,6 +12,17 @@ interface InlineTextProps {
   style?: React.CSSProperties;
 }
 
+function cleanDisplayValue(val: string): string {
+  if (!val) return "";
+  const s = val.trim();
+  if (s.toLowerCase() === "null" || s.toLowerCase() === "undefined") return "";
+  // If string contains raw PDF font stream markers (e.g. 0 16 0 R [ 0 [ 750...)
+  if (/\d+\s+\d+\s+R/i.test(s) || /\[\s*\d+\s+0\s+0/i.test(s) || /^\d+\s*null$/i.test(s)) {
+    return "";
+  }
+  return s;
+}
+
 export function InlineText({
   value,
   onSave,
@@ -21,18 +32,19 @@ export function InlineText({
   tag = "span",
   style
 }: InlineTextProps) {
+  const displayVal = cleanDisplayValue(value);
   const [isEditing, setIsEditing] = useState(false);
-  const [text, setText] = useState(value);
+  const [text, setText] = useState(displayVal);
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
-    setText(value);
+    setText(cleanDisplayValue(value));
   }, [value]);
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus();
-      if ('select' in inputRef.current) {
+      if ("select" in inputRef.current) {
         inputRef.current.select();
       }
     }
@@ -40,7 +52,7 @@ export function InlineText({
 
   const handleBlur = () => {
     setIsEditing(false);
-    if (text !== value) {
+    if (text !== displayVal) {
       onSave(text);
     }
   };
@@ -50,7 +62,7 @@ export function InlineText({
       e.preventDefault();
       handleBlur();
     } else if (e.key === "Escape") {
-      setText(value);
+      setText(displayVal);
       setIsEditing(false);
     }
   };

@@ -1,4 +1,4 @@
-import { TemplateCategory, TemplateMeta } from "@/types/resume";
+import { TemplateCategory, TemplateMeta, ResumeData } from "@/types/resume";
 import { templateRegistry } from "./registry";
 
 export interface AIRecommendation {
@@ -8,7 +8,40 @@ export interface AIRecommendation {
   keyBenefits: string[];
 }
 
-export function recommendTemplates(
+const API_BASE_URL = "http://127.0.0.1:8000/api/v1";
+
+export async function fetchAITemplateRecommendations(
+  candidateCv: ResumeData,
+  jobDescription?: string
+): Promise<AIRecommendation[]> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/templates/recommended`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ candidateCv, jobDescription })
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      const topRecs = data.recommendations?.top_recommendations || [];
+      return topRecs.map((rec: any) => {
+        const meta = templateRegistry[rec.template_id as TemplateCategory] || templateRegistry["ats-professional"];
+        return {
+          template: meta,
+          matchPercentage: rec.compatibility_score || 95,
+          reason: rec.reasons[0] || "Plantilla optimizada para tu densidad de experiencia y perfil.",
+          keyBenefits: rec.reasons || ["Máxima legibilidad ATS", "Jerarquía visual limpia"]
+        };
+      });
+    }
+  } catch (err) {
+    console.warn("Backend AI Recommendation API offline, using local Recommendation Engine:", err);
+  }
+
+  return recommendTemplatesLocal(candidateCv.contact?.title || "Software Engineer");
+}
+
+export function recommendTemplatesLocal(
   roleTitle: string,
   industry: string = "Technology",
   experienceYears: number = 5,
@@ -33,7 +66,7 @@ export function recommendTemplates(
     secondId = "minimalist";
     thirdId = "ats-professional";
   } else if (roleLower.includes("finance") || roleLower.includes("analyst") || roleLower.includes("cpa")) {
-    topId = "finance";
+    topId = "corporate";
     secondId = "corporate";
     thirdId = "ats-professional";
   } else if (roleLower.includes("doctor") || roleLower.includes("nurse") || roleLower.includes("health")) {
